@@ -1,23 +1,25 @@
+import { useAtualizarCampos } from '../../hooks/useAtualizarCampos';
+import { useRecoilValue } from 'recoil';
+import { camposObrigatorios } from '../../states/atom';
 import './CampoTexto.css'
+import { useIdentificacaoDosCampos } from '../../hooks/useIdentificacaoDosCampos';
 
-export default function CampoTexto(props) {
+export default function CampoTexto({ campo }) {
 
-    const placeholderModificada = `${props.placeholder}...`
-
-    const aoDigitado = (evento) => {
-        props.aoAlterado(evento.target.value)
-    }
+    const { valor, atualizarCampo } = useAtualizarCampos(campo);
+    const obrigatorio = useRecoilValue(camposObrigatorios);
+    const { label, placeholder } = useIdentificacaoDosCampos(campo);
 
     return (
         <div className="campo-texto">
             <label>
-                {props.label}
+                {label}
             </label>
             <input
-                value={props.valor}
-                onChange={aoDigitado}
-                required={props.obrigatorio}
-                placeholder={placeholderModificada}
+                value={valor}
+                onChange={atualizarCampo}
+                required={obrigatorio}
+                placeholder={placeholder}
             />
         </div>
     )

@@ -1,18 +1,23 @@
-import './Colaborador.css'
+import { useRecoilValue } from 'recoil';
+import { colaboradorPorNome } from '../../states/seletores';
+import './Colaborador.css';
 
-export default function Colaborador({ nome, imagem, cargo, corDeFundo }) {
+export default function Colaborador({ nome }) {
+    const colaborador = useRecoilValue(colaboradorPorNome(nome));
+
     return (
         <div className='colaborador'>
             <div
                 className='cabecalho'
-                style={{ backgroundColor: corDeFundo }}
+                style={{ backgroundColor: colaborador.corDeFundo }}
             >
-                <img src={imagem} alt={nome} />
+                <img src={colaborador.imagem} alt={colaborador.nome} />
             </div>
             <div className='rodape'>
-                <h4>{nome}</h4>
-                <h5>{cargo}</h5>
+                <h4>{colaborador.nome}</h4>
+                <h5>{colaborador.cargo}</h5>
             </div>
         </div>
-    )
+    );
 }
+
