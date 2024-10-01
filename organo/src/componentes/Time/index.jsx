@@ -1,8 +1,20 @@
-import { useColaboradorPorTime } from '../../hooks/useColaboradorPorTime';
+import { useRecoilValue } from 'recoil';
 import './Time.css';
+import Colaborador from '../Colaborador';
+import { colaboradoresPorTime } from '../../states/seletores';
 
 export default function Time({ nome }) {
-    const {time, colaboradores} = useColaboradorPorTime(nome);
+
+    const timesComColaboradores = useRecoilValue(colaboradoresPorTime);
+    const time = timesComColaboradores.find(t => t.nome === nome);
+
+    const colaboradores = time.colaboradores.map(colaborador => (
+        <Colaborador
+            key={colaborador.nome}
+            nome={colaborador.nome}
+        />
+    ));
+
     const css = { backgroundColor: time.corSecundaria };
 
     return (
@@ -21,4 +33,3 @@ export default function Time({ nome }) {
         ) : ''
     );
 }
-

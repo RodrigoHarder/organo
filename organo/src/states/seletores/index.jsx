@@ -1,5 +1,14 @@
-import {selector, selectorFamily} from 'recoil'
-import {listaDeColaboradores, listaDeTimes} from '../atom'
+import { selector, selectorFamily } from 'recoil'
+import { listaDeColaboradores } from '../atom'
+
+export const listaDeTimes = selector({
+    key: 'listaDeTimes',
+    get: async () => {
+        const response = await fetch('http://localhost:3000/times');
+        const times = await response.json();
+        return times.map((time) => ({ ...time, colaboradores: [] }));
+    }
+});
 
 export const colaboradoresPorTime = selector({
     key: 'colaboradoresPorTime',
@@ -15,7 +24,6 @@ export const colaboradoresPorTime = selector({
     }
 });
 
-//Seletor do colaborador pelo nome
 export const colaboradorPorNome = selectorFamily({
     key: 'colaboradorPorNome',
     get: (nome) => ({ get }) => {

@@ -7,10 +7,14 @@ import './Formulario.css'
 export default function Formulario () {
 
     const aoSalvar = useSalvarColaboradores()
+    const aoSubmeter = (evento) => {
+        evento.preventDefault()
+        aoSalvar()
+    }
 
     return (
         <section className="formulario">
-            <form onSubmit={aoSalvar}>
+            <form onSubmit={aoSubmeter}>
                 <h2>Preencha os dados para criar o card do colaborador</h2>
                 <CampoTexto campo="nome"/>
                 <CampoTexto campo="cargo"/>

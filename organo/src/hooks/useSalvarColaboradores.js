@@ -6,8 +6,7 @@ export const useSalvarColaboradores = () => {
     const adicionarColaborador = useAdicionarColaborador()
     const [formulario, setFormulario] = useRecoilState(camposDoFormulario)
 
-    const aoSalvar = (evento) => {
-        evento.preventDefault()
+    const aoSalvar = () => {
         adicionarColaborador(formulario)
         resetarCampos()
     }
